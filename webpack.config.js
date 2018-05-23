@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const webpackServeWaitpage = require("webpack-serve-waitpage");
 const path = require("path");
 
 // const parts = require("./lib/parts");
@@ -67,4 +68,30 @@ module.exports = {
     //     "react": "React",
     //     "react-dom": "ReactDOM"
 	// },
+
+	serve: {
+		content: path.join(__dirname, "dist"),
+		dev: {
+			publicPath: "/"
+		},
+		logLevel: "debug",
+		logTime: true,
+		hot: true,
+		on: {
+			'listening': () => {
+				console.info('listening in ' + module.exports.mode + ' mode.');
+			}
+		},
+		add: (app, middleware, options) => {
+
+			app.use(webpackServeWaitpage(options, {
+				disableWhenValid: false,
+				theme: "material"
+			})); // * Be sure to pass the options argument from the arguments
+
+			// Make sure the usage of webpack-serve-waitpage will be before the following commands if exists
+			// middleware.webpack();
+			// middleware.content()
+		  }
+	}
 };
