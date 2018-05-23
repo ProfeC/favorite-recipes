@@ -1,14 +1,5 @@
 import * as React from 'react'
 
-// import Categories from './Categories'
-// import SearchForm from './SearchForm'
-// import ServiceList from './ServiceList'
-// import * as Utils from '../lib/utils'
-// import * as UtilsAudiences from '../lib/audiences'
-// import * as UtilsCategories from '../lib/categories'
-// import * as UtilsServices from '../lib/services'
-// import * as UtilsTags from '../lib/tags'
-
 export default class App extends React.Component<{}, {}> {
 	constructor(props) {
 		super(props)

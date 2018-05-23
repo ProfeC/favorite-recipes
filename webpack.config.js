@@ -1,6 +1,7 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 const webpack = require("webpack");
 const webpackServeWaitpage = require("webpack-serve-waitpage");
-const path = require("path");
 
 // const parts = require("./lib/parts");
 const PATHS = {
@@ -57,6 +58,29 @@ module.exports = {
 		new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
 		new webpack.optimize.SplitChunksPlugin({
 			"names": ["vendor", "manifest"] // Specify the common bundle's name.
+		}),
+		new HtmlWebpackPlugin({
+			appMountHtmlSnippet: '<div class="app-spinner"><i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i></div>',
+			appMountId: 'main',
+			bodyHeaderSnippet: '<h1><%= htmlWebpackPlugin.options.title %></h1>',
+			bodyHeaderSnippetId: 'page-header',
+			// bodyHtmlSnippet: '<main id="main"></main>',
+			favicon: path.join(PATHS.app, "img", "favicon.ico"),
+			hash: true,
+			headHtmlSnippet: '<style>div.app-spinner {position: fixed;top:50%;left:50%;}</style >',
+			inject: false,
+			lang: 'en-US',
+			meta: [
+				{
+					name: 'description',
+					content: 'A simple web app to catalogue favorite recipes.'
+				}
+			],
+			mobile: true,
+			// template: path.join(PATHS.app, 'templates', 'index.ejs'),
+			template: require('html-webpack-template'),
+			title: "My Favorite Recipes",
+			unsupportedBrowser: true
 		}),
 	],
 

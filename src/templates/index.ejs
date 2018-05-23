@@ -1,15 +1,137 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<title><%= htmlWebpackPlugin.options.title %></title>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" crossorigin="anonymous" integrity="sha256-NqI559iHqiWe5VxDi9mXE8i83ghn8Ru8BINyiPN7lDg=" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css">
-		<!--link rel="stylesheet" href="bundle.css"-->
-	</head>
+<% var item, key %><%
+htmlWebpackPlugin.options.appMountIds = htmlWebpackPlugin.options.appMountIds || [] %><%
+htmlWebpackPlugin.options.lang = htmlWebpackPlugin.options.lang || "en" %><%
+htmlWebpackPlugin.options.links = htmlWebpackPlugin.options.links || [] %><%
+htmlWebpackPlugin.options.meta = htmlWebpackPlugin.options.meta || [] %><%
+htmlWebpackPlugin.options.scripts = htmlWebpackPlugin.options.scripts || []
+%><!DOCTYPE html>
+<html lang="<%= htmlWebpackPlugin.options.lang %>"<% if (htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>>
+  <head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible"><%
 
-	<body id="container" class="container">
-		<main id="root"></main>
-		<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/g/foundation@6.2.4(foundation.min.js+js/foundation.abide.js+js/foundation.accordion.js+js/foundation.accordionMenu.js+js/foundation.core.js+js/foundation.drilldown.js+js/foundation.dropdown.js+js/foundation.dropdownMenu.js+js/foundation.equalizer.js+js/foundation.interchange.js+js/foundation.magellan.js+js/foundation.offcanvas.js+js/foundation.orbit.js+js/foundation.responsiveMenu.js+js/foundation.responsiveToggle.js+js/foundation.reveal.js+js/foundation.slider.js+js/foundation.sticky.js+js/foundation.tabs.js+js/foundation.toggler.js+js/foundation.tooltip.js+js/foundation.util.box.js+js/foundation.util.keyboard.js+js/foundation.util.mediaQuery.js+js/foundation.util.motion.js+js/foundation.util.nest.js+js/foundation.util.timerAndImageLoader.js+js/foundation.util.touch.js+js/foundation.util.triggers.js)"></script>
-	</body>
+    if (htmlWebpackPlugin.options.baseHref) { %>
+    <base href="<%= htmlWebpackPlugin.options.baseHref %>"><%
+    } %><%
+
+    if (Array.isArray(htmlWebpackPlugin.options.meta)) { %><%
+      for (item of htmlWebpackPlugin.options.meta) { %>
+    <meta<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>><%
+      } %><%
+    } %><%
+
+    %>
+    <title><%= htmlWebpackPlugin.options.title %></title><%
+
+    if (htmlWebpackPlugin.files.favicon) { %>
+    <link href="<%= htmlWebpackPlugin.files.favicon %>" rel="shortcut icon" /><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.mobile) { %>
+    <meta content="width=device-width, initial-scale=1" name="viewport"><%
+    } %><%
+
+    for (item of htmlWebpackPlugin.options.links) { %><%
+      if (typeof item === 'string' || item instanceof String) { item = { href: item, rel: 'stylesheet' } } %>
+    <link<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %> /><%
+    } %><%
+
+    for (key in htmlWebpackPlugin.files.css) { %><%
+      if (htmlWebpackPlugin.files.cssIntegrity) { %>
+    <link
+      href="<%= htmlWebpackPlugin.files.css[key] %>"
+      rel="stylesheet"
+      integrity="<%= htmlWebpackPlugin.files.cssIntegrity[key] %>"
+      crossorigin="<%= webpackConfig.output.crossOriginLoading %>" /><%
+      } else { %>
+    <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet" /><%
+      } %><%
+    } %><%
+    if (htmlWebpackPlugin.options.headHtmlSnippet) { %>
+    <%= htmlWebpackPlugin.options.headHtmlSnippet %><%
+    } %>
+  </head>
+  <body><%
+    if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+    <style>.unsupported-browser { display: none; }</style>
+    <div class="unsupported-browser">
+      Sorry, your browser is not supported. Please upgrade to the latest version or switch your browser to use this
+      site. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a> for options.
+    </div><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.bodyHtmlSnippet) { %>
+    <%= htmlWebpackPlugin.options.bodyHtmlSnippet %><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.bodyHeaderSnippetId) { %>
+    <header id="<%= htmlWebpackPlugin.options.bodyHeaderSnippetId %>"><%
+      if (htmlWebpackPlugin.options.bodyHeaderSnippet) { %>
+    <%= htmlWebpackPlugin.options.bodyHeaderSnippet %><%
+      } %>
+    </header><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.appMountId) { %>
+    <main id="<%= htmlWebpackPlugin.options.appMountId %>"><%
+      if (htmlWebpackPlugin.options.appMountHtmlSnippet) { %>
+    <%= htmlWebpackPlugin.options.appMountHtmlSnippet %><%
+      } %>
+    </main><%
+    } %><%
+
+    for (item of htmlWebpackPlugin.options.appMountIds) { %>
+    <section id="<%= item %>"></section><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.window) { %>
+    <script type="text/javascript"><%
+      for (key in htmlWebpackPlugin.options.window) { %>
+      window['<%= key %>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[key]) %>;<%
+      } %>
+    </script><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.inlineManifestWebpackName) { %>
+    <%= htmlWebpackPlugin.files[htmlWebpackPlugin.options.inlineManifestWebpackName] %><%
+    } %><%
+
+    for (item of htmlWebpackPlugin.options.scripts) { %><%
+      if (typeof item === 'string' || item instanceof String) { item = { src: item, type: 'text/javascript' } } %>
+    <script<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>></script><%
+    } %><%
+
+    for (key in htmlWebpackPlugin.files.chunks) { %><%
+      if (htmlWebpackPlugin.files.jsIntegrity) { %>
+    <script
+      src="<%= htmlWebpackPlugin.files.chunks[key].entry %>"
+      type="text/javascript"
+      integrity="<%= htmlWebpackPlugin.files.jsIntegrity[htmlWebpackPlugin.files.js.indexOf(htmlWebpackPlugin.files.chunks[key].entry)] %>"
+      crossorigin="<%= webpackConfig.output.crossOriginLoading %>"></script><%
+      } else { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[key].entry %>" type="text/javascript"></script><%
+      } %><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.devServer) { %>
+    <script src="<%= htmlWebpackPlugin.options.devServer %>/webpack-dev-server.js" type="text/javascript"></script><%
+    } %><%
+
+    if (htmlWebpackPlugin.options.googleAnalytics) { %>
+    <script type="text/javascript">
+      window.GoogleAnalyticsObject='ga';window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;<%
+
+      if (htmlWebpackPlugin.options.googleAnalytics.trackingId) { %>
+      ga('create','<%= htmlWebpackPlugin.options.googleAnalytics.trackingId %>','auto');<%
+      } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); } %><%
+
+      if (htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %>
+      ga('send','pageview')<%
+      } %>
+    </script>
+    <script async defer src="https://www.google-analytics.com/analytics.js" type="text/javascript"></script><%
+    } %>
+  </body>
 </html>
+
+<!-- https://raw.githubusercontent.com/jaketrent/html-webpack-template/master/index.ejs -->
