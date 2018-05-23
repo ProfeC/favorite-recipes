@@ -44,7 +44,7 @@ export default class App extends React.Component<{}, {}> {
 	}
 
 	componentDidMount () {
-	console.info("Component Did Mount")
+		console.info("Component Did Mount")
 	}
 
 	componentWillUpdate () {
@@ -60,11 +60,6 @@ export default class App extends React.Component<{}, {}> {
 	}
 
 	render() {
-		return (
-				<main>
-					<div>
-						<h1>Testing</h1>
-					</div>
-				</main>
-	)}
+		return (<h1>Testing</h1>)
+	}
 }
