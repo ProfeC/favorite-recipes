@@ -12,6 +12,10 @@ const PATHS = {
 };
 
 module.exports = {
+	// NOTE: Dynamically set the service mode.
+	mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+
+	// NOTE: Entry points.
     entry: {
 		app: path.join(PATHS.app, "index.tsx"),
 		vendor: [ "react", "react-dom" ]
@@ -21,24 +25,24 @@ module.exports = {
 		path: "/dist"
     },
 
-    // Enable sourcemaps for debugging webpack's output.
+    // NOTE: Enable sourcemaps for debugging webpack's output.
     devtool: "inline-source-map",
 
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
+        // NOTE: Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
 
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            // NOTE: All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
 				test: /\.tsx?$/,
 				loader: "ts-loader",
 				exclude: "/node_modules"
 			},
 
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            // NOTE: All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
 				enforce: "pre",
 				test: /\.js$/,
@@ -59,18 +63,8 @@ module.exports = {
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-	},
-
-	devServer: {
-		clientLogLevel: "info",
-		contentBase: PATHS.build,
-		publicPath: PATHS.build,
-		compress: true,
-		port: 9000,
-		hot: true,
-		overlay: false
-	}
+    // externals: {
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+	// },
 };
