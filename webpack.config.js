@@ -12,14 +12,17 @@ const PATHS = {
 };
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+		app: path.join(PATHS.app, "index.tsx"),
+		vendor: [ "react", "react-dom" ]
+	},
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/dist"
+        filename: "[name].bundle.js",
+		path: "/dist"
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    devtool: "inline-source-map",
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -29,12 +32,28 @@ module.exports = {
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            {
+				test: /\.tsx?$/,
+				loader: "ts-loader",
+				exclude: "/node_modules"
+			},
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            {
+				enforce: "pre",
+				test: /\.js$/,
+				loader: "source-map-loader"
+			}
         ]
-    },
+	},
+
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(), // enable HMR globally
+		new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
+		new webpack.optimize.SplitChunksPlugin({
+			"names": ["vendor", "manifest"] // Specify the common bundle's name.
+		}),
+	],
 
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
@@ -43,5 +62,15 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
-    },
+	},
+
+	devServer: {
+		clientLogLevel: "info",
+		contentBase: PATHS.build,
+		publicPath: PATHS.build,
+		compress: true,
+		port: 9000,
+		hot: true,
+		overlay: false
+	}
 };

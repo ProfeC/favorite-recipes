@@ -1,0 +1,47 @@
+<cfscript>
+|  param name='attributes.audience' default='';
+|  // writeDump(var=variables, expand=false, label='variables');
+|  // writeDump(var=request, expand=false, label='request');
+|  // writeDump(var=attributes, exapnd=false, label='attributes');
+|
+|  this.path = './';
+|  this.audience = '';
+|
+|  // NOTE: If we're in the CS environment then use the path provided.
+|  if ( isDefined('variables.caller.ccfpath') ) {
+|    this.filePath = variables.caller.ccfpath;
+|
+|    if ( findNoCase('preview', this.filePath, 0) ) {
+|        this.path = '/' & removeChars(getDirectoryFromPath(variables.caller.ccfpath), 1, 9); // removes '/preview'
+|    }
+|  }
+|
+|  if ( attributes.audience neq '' ) {
+|    this.audience = 'data-audience="' & attributes.audience & '"';
+|  }
+|
+|  // writeDump(var=this, expand=false, label='this');
+|
+</cfscript>
+
+<cfoutput>
+link(rel="stylesheet" href="#this.path#app.bundle.css")
+
+main(id="root" #this.audience#)
+script(src="#this.path#vendor.bundle.js")
+script(src="#this.path#app.bundle.js")
+
+script.
+
+    // NOTE: Make sure we have a value for SHU
+    shu = (typeof(shu) === "undefined") ? {} : shu;
+
+    // NOTE: if shu.tasks_services doesn\'t already exist, create it
+    if(typeof(shu.tasks_services) === "undefined")
+        shu.tasks_services = {};
+
+    // NOTE: Add page level attributes to the SHU scope
+    shu.tasks_services = #serializeJSON(attributes)#;
+
+</cfoutput>
+

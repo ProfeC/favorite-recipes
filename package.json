@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "gh-pages -d build",
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --watch --mode development",
     "stats": "webpack --profile --json > stats.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,19 +25,20 @@
     "url": "https://github.com/ProfeC/favorite-recipes/issues"
   },
   "homepage": "https://github.com/ProfeC/favorite-recipes#readme",
+  "typings": "./src/typings/app.d.ts",
   "dependencies": {
-    "@types/react": "^16.3.14",
-    "@types/react-dom": "^16.0.5",
-    "@types/react-router": "^4.0.25",
-    "@types/react-router-dom": "^4.2.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^5.0.0",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-router": "^4.0.25",
+    "@types/react-router-dom": "^4.2.6",
     "gh-pages": "^1.1.0",
     "source-map-loader": "^0.2.3",
+    "ts-loader": "^4.3.0",
     "typescript": "^2.8.3",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3",

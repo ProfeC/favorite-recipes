@@ -1,13 +1,24 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es5",
-        "jsx": "react"
+		"allowJs": true,
+		"alwaysStrict": true,
+		"jsx": "react",
+		"module": "commonjs",
+		"newLine": "LF",
+		"noImplicitAny": false,
+		"outDir": "./dist/",
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"strictNullChecks": true,
+		"target": "es2018"
     },
     "include": [
         "./src/**/*"
-    ]
+	],
+	"exclude": [
+		"./node_modules",
+        "**/*.spec.ts",
+        "**/*.d.ts"
+	]
 }
