@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-// import {BrowserRouter, Route, Link, NavLink, Switch} from 'react-router-dom'
+// import Router from './components/Router'
 import App from './components/App'
 import PageHeader from './components/PageHeader'
 
@@ -17,6 +17,7 @@ class Index extends React.Component<{},{}> {
 		<div className="wrapper">
 			<PageHeader />
 			<App displayName="Favorite Recipes" version="1.0.0" />
+			{/* <Router /> */}
 			<footer>
 				Test Updated => {updated}
 			</footer>
@@ -27,5 +28,6 @@ class Index extends React.Component<{},{}> {
 
 ReactDOM.render(
 	<Index />,
-	document.getElementById('root')
+	document.querySelector('#root')
+	// document.getElementById('root')
 );
