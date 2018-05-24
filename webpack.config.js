@@ -54,16 +54,16 @@ module.exports = {
 	},
 
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(), // enable HMR globally
+		// new webpack.HotModuleReplacementPlugin(), // enable HMR globally
 		new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
 		new webpack.optimize.SplitChunksPlugin({
 			"names": ["vendor", "manifest"] // Specify the common bundle's name.
 		}),
 		new HtmlWebpackPlugin({
 			appMountHtmlSnippet: '<div class="app-spinner"><i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i></div>',
-			appMountId: 'main',
-			bodyHeaderSnippet: '<h1><%= htmlWebpackPlugin.options.title %></h1>',
-			bodyHeaderSnippetId: 'page-header',
+			appMountId: 'root',
+			// bodyHeaderSnippet: '<h1><%= htmlWebpackPlugin.options.title %></h1>',
+			// bodyHeaderSnippetId: 'page-header',
 			// bodyHtmlSnippet: '<main id="main"></main>',
 			favicon: path.join(PATHS.app, "img", "favicon.ico"),
 			hash: true,
@@ -98,7 +98,7 @@ module.exports = {
 		dev: {
 			publicPath: "/"
 		},
-		logLevel: "debug",
+		logLevel: "info",
 		logTime: true,
 		hot: true,
 		on: {
@@ -107,15 +107,14 @@ module.exports = {
 			}
 		},
 		add: (app, middleware, options) => {
-
 			app.use(webpackServeWaitpage(options, {
 				disableWhenValid: false,
 				theme: "material"
 			})); // * Be sure to pass the options argument from the arguments
 
 			// Make sure the usage of webpack-serve-waitpage will be before the following commands if exists
-			// middleware.webpack();
+			middleware.webpack();
 			// middleware.content()
-		  }
+		}
 	}
 };
