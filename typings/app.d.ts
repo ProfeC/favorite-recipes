@@ -1,5 +1,5 @@
-// Type definitions for Tasks & Services (Toolkits) Application v1.0.0
-// Project: Tasks & Services (Toolkits)
+// Type definitions for Favorite Recipes Application v1.0.0
+// Project: Favorite Recipes
 // Definitions by: G. L. Clark, II
 // Reference: https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-d-ts.html
 
@@ -7,16 +7,16 @@
 *~ place them here.
 *~ You should also place types (interfaces and type alias) here.
 */
-declare namespace Services {
-	//~ We can write 'Services.timeout = 50;'
+declare namespace Recipes {
+	//~ We can write 'Recipes.timeout = 50;'
 	let timeout: number;
 	let allTags: object[];
 
-	//~ We can access 'Services.version', but not change it
+	//~ We can access 'Recipes.version', but not change it
 	const version: string;
 
-	//~ There's some class we can create via 'let c = new Services.Cat(42)'
-	//~ Or reference e.g. 'function f(c: Services.Cat) { ... }
+	//~ There's some class we can create via 'let c = new Recipes.Cat(42)'
+	//~ Or reference e.g. 'function f(c: Recipes.Cat) { ... }
 	// class Cat {
 	//	constructor(n: number);
 
@@ -28,14 +28,11 @@ declare namespace Services {
 	// }
 
 	//~ We can declare a variable as
-	//~	'var s: Services.AppProps = { updated: 12323122415, version: "1.2.3" };'
+	//~	'var s: Recipes.AppProps = { updated: 12323122415, version: "1.2.3" };'
 	interface AppProps {
 		displayName: string,
 		updated?: number,
-		version?: number,
-		audience?: string,
-		category?: string,
-		tag?: string
+		version?: string
 	}
 
 	interface AppState {
@@ -46,7 +43,7 @@ declare namespace Services {
 		categoryName?: string,
 		categories: object[],
 		query: string,
-		services: Array<any>,
+		recipes: Array<any>,
 		tagID?: string | undefined,
 		tagName?: string[] | undefined,
 		tags: object[]

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class RenderImage extends React.Component<Services.ImageProps, Services.ImageState> {
+export default class RenderImage extends React.Component<Recipes.ImageProps, Recipes.ImageState> {
 	constructor(props) {
 		super(props)
 	}

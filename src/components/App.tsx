@@ -1,9 +1,11 @@
 import * as React from 'react'
 
-export default class App extends React.Component<{}, {}> {
+export default class App extends React.Component<Recipes.AppProps, Recipes.AppState> {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		// this.state = {
+		// 	recipes: []
+		// }
 
 		this.handleCategoryClick = this.handleCategoryClick.bind(this)
 		this.handleQuery = this.handleQuery.bind(this)
@@ -51,6 +53,10 @@ export default class App extends React.Component<{}, {}> {
 	}
 
 	render() {
-		return (<h1>Testing</h1>)
+		return (
+			<main>
+				<p>some main content will...</p>
+			</main>
+		)
 	}
 }
