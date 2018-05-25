@@ -1,5 +1,5 @@
-// Type definitions for Tasks & Services (Toolkits) Application v1.0.0
-// Project: Tasks & Services (Toolkits)
+// Type definitions for Favorite Recipes Application v1.0.0
+// Project: Favorite Recipes
 // Definitions by: G. L. Clark, II
 // Reference: https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-d-ts.html
 
@@ -7,16 +7,16 @@
 *~ place them here.
 *~ You should also place types (interfaces and type alias) here.
 */
-declare namespace Services {
-	//~ We can write 'Services.timeout = 50;'
+declare namespace Recipes {
+	//~ We can write 'Recipes.timeout = 50;'
 	let timeout: number;
 	let allTags: object[];
 
-	//~ We can access 'Services.version', but not change it
+	//~ We can access 'Recipes.version', but not change it
 	const version: string;
 
-	//~ There's some class we can create via 'let c = new Services.Cat(42)'
-	//~ Or reference e.g. 'function f(c: Services.Cat) { ... }
+	//~ There's some class we can create via 'let c = new Recipes.Cat(42)'
+	//~ Or reference e.g. 'function f(c: Recipes.Cat) { ... }
 	// class Cat {
 	//	constructor(n: number);
 
@@ -28,37 +28,31 @@ declare namespace Services {
 	// }
 
 	//~ We can declare a variable as
-	//~	'var s: Services.AppProps = { updated: 12323122415, version: "1.2.3" };'
+	//~	'var s: Recipes.AppProps = { updated: 12323122415, version: "1.2.3" };'
 	interface AppProps {
-		displayName: string,
-		updated?: number,
-		version?: number,
-		audience?: string,
-		category?: string,
-		tag?: string
+		lastUpdated?: number,
+		version?: string
 	}
 
 	interface AppState {
-		audienceID?: string | undefined,
-		audienceName?: string,
-		audiences: object[],
 		categoryID?: string | undefined,
-		categoryName?: string,
 		categories: object[],
 		query: string,
-		services: Array<any>,
+		recipes: Array<any>,
 		tagID?: string | undefined,
-		tagName?: string[] | undefined,
 		tags: object[]
 	}
 
-	interface AudienceProps {
-		uuid: string,
-		description?: string | undefined,
-		imageSmall?: string | undefined,
-		title: string,
-		type?: string | undefined
+	interface RecipeProps {
+		categories: Array<any>,
+		description: string,
+		images: object[],
+		ingredients: object[],
+		instructions: string | undefined,
+		tags: object[]
 	}
+
+	interface RecipeState {}
 
 	interface CategoriesProps {
 	  categoryID?: string | undefined,
@@ -95,21 +89,6 @@ declare namespace Services {
 
 	interface ImageState {}
 
-	interface ServiceProps {
-		audience: AudienceProps[],
-		category: CategoryProps[],
-		description: string,
-		imageSmall: ImageProps,
-		includeDescription: boolean | undefined,
-		tag: TagProps[],
-		title: string,
-		unit?: string,
-		url: string,
-		uuid: string
-	}
-
-	interface ServiceState {}
-
 	interface SearchProps {
 		query?: string,
 		onChange?: string
@@ -119,42 +98,13 @@ declare namespace Services {
 		query?: string
 	}
 
-	interface ServiceListProps {
-		audiences: object[],
-		categoryID?: string,
-		categoryName?: string,
-		categories: object[],
-		query: string,
-		services: object[],
-		tags: object[]
-	}
+	//~ We can write 'const v: Recipes.VetID = 42;'
+	//~  or 'const v: Recipes.VetID = "bob";'
+	type RecipeID = string | number;
 
-	interface ServiceListState {
-		services: object[]
-	}
-
-	interface TagProps {
-		active: boolean,
-		contentID: number,
-		parentID: number,
-		title: string,
-		uuid: string
-	}
-
-	//~ We can write 'const v: Services.VetID = 42;'
-	//~  or 'const v: Services.VetID = "bob";'
-	type VetID = string | number;
-
-	// //~ We can invoke 'Services.checkCat(c)' or 'Services.checkCat(c, v);'
+	// //~ We can invoke 'Recipes.checkCat(c)' or 'Recipes.checkCat(c, v);'
 	// function checkCat(c: Cat, v?: VetID);
 	function filterByCategory(
 	  categoryID: string,
-	  units: object[]
 	): object[];
-
-	function getUnitCategories(
-	  units: object[]
-	): object[];
-
-
 }

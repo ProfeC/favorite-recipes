@@ -2,12 +2,34 @@
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-// import {BrowserRouter, Route, Link, NavLink, Switch} from 'react-router-dom'
+// import Router from './components/Router'
 import App from './components/App'
+import PageHeader from './components/PageHeader'
+
+// NOTE: Stylesheets
 // import './style/App.scss'
 
+const appInfo: Recipes.AppProps = {
+	lastUpdated: Date.now(),
+	version: '1.0.0'
+}
+
+class Index extends React.Component<{},{}> {
+	render() {
+		return (
+		<div className="wrapper">
+			<PageHeader />
+			<App {...appInfo} />
+			{/* <Router /> */}
+			<footer data-updated={appInfo.lastUpdated}>
+				Test Updated => {appInfo.lastUpdated}
+			</footer>
+		</div>
+		)
+	}
+}
+
 ReactDOM.render(
-	<App />,
-	// <App updated={Date.now()} displayName="Student Services Toolkit Application" audience={qs.audience} category={qs.category} tag={qs.tag} />,
-	document.getElementById('main')
+	<Index />,
+	document.querySelector('#root')
 );
