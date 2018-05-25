@@ -9,17 +9,20 @@ import PageHeader from './components/PageHeader'
 // NOTE: Stylesheets
 // import './style/App.scss'
 
+const appInfo: Recipes.AppProps = {
+	lastUpdated: Date.now(),
+	version: '1.0.0'
+}
+
 class Index extends React.Component<{},{}> {
 	render() {
-		let updated = Date.now()
-
 		return (
 		<div className="wrapper">
 			<PageHeader />
-			<App displayName="Favorite Recipes" version="1.0.0" />
+			<App {...appInfo} />
 			{/* <Router /> */}
-			<footer>
-				Test Updated => {updated}
+			<footer data-updated={appInfo.lastUpdated}>
+				Test Updated => {appInfo.lastUpdated}
 			</footer>
 		</div>
 		)
@@ -29,5 +32,4 @@ class Index extends React.Component<{},{}> {
 ReactDOM.render(
 	<Index />,
 	document.querySelector('#root')
-	// document.getElementById('root')
 );

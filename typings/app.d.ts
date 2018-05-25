@@ -30,32 +30,29 @@ declare namespace Recipes {
 	//~ We can declare a variable as
 	//~	'var s: Recipes.AppProps = { updated: 12323122415, version: "1.2.3" };'
 	interface AppProps {
-		displayName: string,
-		updated?: number,
+		lastUpdated?: number,
 		version?: string
 	}
 
 	interface AppState {
-		audienceID?: string | undefined,
-		audienceName?: string,
-		audiences: object[],
 		categoryID?: string | undefined,
-		categoryName?: string,
 		categories: object[],
 		query: string,
 		recipes: Array<any>,
 		tagID?: string | undefined,
-		tagName?: string[] | undefined,
 		tags: object[]
 	}
 
-	interface AudienceProps {
-		uuid: string,
-		description?: string | undefined,
-		imageSmall?: string | undefined,
-		title: string,
-		type?: string | undefined
+	interface RecipeProps {
+		categories: Array<any>,
+		description: string,
+		images: object[],
+		ingredients: object[],
+		instructions: string | undefined,
+		tags: object[]
 	}
+
+	interface RecipeState {}
 
 	interface CategoriesProps {
 	  categoryID?: string | undefined,
@@ -92,21 +89,6 @@ declare namespace Recipes {
 
 	interface ImageState {}
 
-	interface ServiceProps {
-		audience: AudienceProps[],
-		category: CategoryProps[],
-		description: string,
-		imageSmall: ImageProps,
-		includeDescription: boolean | undefined,
-		tag: TagProps[],
-		title: string,
-		unit?: string,
-		url: string,
-		uuid: string
-	}
-
-	interface ServiceState {}
-
 	interface SearchProps {
 		query?: string,
 		onChange?: string
@@ -116,42 +98,13 @@ declare namespace Recipes {
 		query?: string
 	}
 
-	interface ServiceListProps {
-		audiences: object[],
-		categoryID?: string,
-		categoryName?: string,
-		categories: object[],
-		query: string,
-		services: object[],
-		tags: object[]
-	}
+	//~ We can write 'const v: Recipes.VetID = 42;'
+	//~  or 'const v: Recipes.VetID = "bob";'
+	type RecipeID = string | number;
 
-	interface ServiceListState {
-		services: object[]
-	}
-
-	interface TagProps {
-		active: boolean,
-		contentID: number,
-		parentID: number,
-		title: string,
-		uuid: string
-	}
-
-	//~ We can write 'const v: Services.VetID = 42;'
-	//~  or 'const v: Services.VetID = "bob";'
-	type VetID = string | number;
-
-	// //~ We can invoke 'Services.checkCat(c)' or 'Services.checkCat(c, v);'
+	// //~ We can invoke 'Recipes.checkCat(c)' or 'Recipes.checkCat(c, v);'
 	// function checkCat(c: Cat, v?: VetID);
 	function filterByCategory(
 	  categoryID: string,
-	  units: object[]
 	): object[];
-
-	function getUnitCategories(
-	  units: object[]
-	): object[];
-
-
 }

@@ -16,7 +16,6 @@ export default class App extends React.Component<Recipes.AppProps, Recipes.AppSt
 		// console.info(categoryNode.target)
 		this.setState({
 			categoryID: categoryNode.target.id,
-			categoryName: categoryNode.target.title,
 			query: ''
 		})
 	}
