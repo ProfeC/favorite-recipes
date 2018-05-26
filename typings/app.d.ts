@@ -1,7 +1,11 @@
+///<reference path='../typings/recipe.d.ts'/>
+
 // Type definitions for Favorite Recipes Application v1.0.0
 // Project: Favorite Recipes
 // Definitions by: G. L. Clark, II
 // Reference: https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-d-ts.html
+
+// import './recipe'
 
 /*~ If your library has properties exposed on a global variable,
 *~ place them here.
@@ -10,10 +14,9 @@
 declare namespace Recipes {
 	//~ We can write 'Recipes.timeout = 50;'
 	let timeout: number;
-	let allTags: object[];
 
 	//~ We can access 'Recipes.version', but not change it
-	const version: string;
+	// const version: string;
 
 	//~ There's some class we can create via 'let c = new Recipes.Cat(42)'
 	//~ Or reference e.g. 'function f(c: Recipes.Cat) { ... }
@@ -38,22 +41,10 @@ declare namespace Recipes {
 		categoryID?: string | undefined,
 		categories: object[],
 		query: string,
-		recipes: Array<any>,
+		recipes: Array<RecipeProps>,
 		tagID?: string | undefined,
 		tags: object[]
 	}
-
-	interface RecipeProps {
-		categories: Array<any>,
-		description: string,
-		images: object[],
-		ingredients: object[],
-		instructions: string | undefined,
-		tags: object[]
-	}
-
-	interface RecipeState {}
-
 	interface CategoriesProps {
 	  categoryID?: string | undefined,
 	  categoryName?: string | undefined,
